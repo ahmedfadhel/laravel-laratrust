@@ -1,0 +1,33 @@
+body{
+  position: relative;
+}
+.dashboard-management{
+  position: absolute;
+  left:200px;
+  right:0;
+  top:0;
+  bottom:0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+
+#admin-side-menu{
+  width: 200px;
+  color:white;
+
+  position:fixed;
+  top:0;
+  bottom:0;
+  
+}
+
+.admin-menu{
+  background-color:$main-color
+}
+.menu-list a {
+  color: #a5b5d6; 
+}
+.menu-label {
+  color:#a5b5d6;
+}
