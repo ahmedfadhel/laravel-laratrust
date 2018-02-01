@@ -73,7 +73,7 @@
             <div class="field-label"><label class="label">Roles</label></div>
             <div class="field-body">
               @foreach ($roles as $role)
-              <b-checkbox native-value="{{$role->id}}" name="roles[]" >
+              <b-checkbox native-value="{{$role->id}}" name="roles[]">
                 {{$role->display_name}}
               </b-checkbox>
               @endforeach
@@ -97,10 +97,38 @@
 @section('scripts')
 <script>
   let app = new Vue({
-        el:'#app',
-        data:{
+    el:'#app',
+    data:{
           
-        }
-      })
+    },
+    methods:{
+      snackbar(msg) {
+          this.$snackbar.open(msg)
+      },
+      error(msg) {
+        this.$snackbar.open({
+          message:msg,
+          type: 'is-danger',
+          actionText:'Ok'
+        })
+      },
+    }
+  });
+  let session = {!! json_encode(Session::all())!!}
+  let fail = {!! json_encode($errors->all()) !!}
+  let failMessage ='';
+  fail.forEach(function(f){
+    app.error(f);
+  })
+  
+  if(session.hasOwnProperty('success')){
+    app.snackbar(session.success);
+  }else if(session.hasOwnProperty('updated')){
+    app.snackbar(session.updated);
+  }else if(session.hasOwnProperty('error')){
+    app.error(seesion.error);
+  }else{
+    console.log("Nothing But Also At Last it work");
+  }
 </script>
 @endsection

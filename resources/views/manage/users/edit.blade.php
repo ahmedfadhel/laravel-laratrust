@@ -51,7 +51,7 @@
 					</div>
 					<div class="field is-grouped m-l-50">
 						<div class="control">
-							<button type="submit" class="button is-link">Create User</button>
+							<button type="submit" class="button is-link">Save Changes</button>
 						</div>
 						<div class="control">
 							<a class="button is-text" href="{{route('users.index')}}">Cancel</a>
@@ -70,7 +70,30 @@
     el: '#app',
     data: {
       roleGroup:{!! $user->roles->pluck('id') !!}
-    },
-  });
+		},
+		methods:{
+			snackbar(msg) {
+					this.$snackbar.open(msg)
+			},
+			error() {
+				this.$snackbar.open({
+					message:session.error,
+					type: 'is-danger',
+					actionText:'Ok'
+				})
+			},
+		}
+	});
+	let session = {!! json_encode(Session::all())!!}
+	
+	if(session.hasOwnProperty('success')){
+		app.snackbar(session.success);
+	}else if(session.hasOwnProperty('updated')){
+		app.snackbar(session.updated);
+	}else if(session.hasOwnProperty('error')){
+		app.error();
+	}else{
+		console.log("Nothing But Also At Last it work");
+	}
 </script>
 @endsection

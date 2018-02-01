@@ -46,8 +46,9 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            
+            'roles' =>'required'
         ]);
+        
         $normalUser = Role::where('name','user')->get()->first();
         $user = new User;
 
@@ -55,17 +56,18 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $roles = $request->input('roles');
-    //    dd($roles);
-        if(count($roles)){
-            $user->save();
-            // $user->roles()->attach($roles);
-            $user->attachRoles($roles);
+        if($user->save()){
+            if(count($roles)){
+                $user->attachRoles($roles);
+                
+            }else{
+                $user->attachRole($normalUser);
+            }
+            session()->flash('success','User Created Successfully');
         }else{
-            // dd($normalUser);
-            $user->save();
-            $user->attachRole($normalUser);
-           
+            session()->flash('error','Unable to Create New User');
         }
+       
         return redirect()->route('users.index');
         
     }
@@ -112,12 +114,18 @@ class UsersController extends Controller
 				
 				$user = User::findorfail($id);
 				$user->name = $request->input('name');
-				$user->email = $request->input('email');
+                $user->email = $request->input('email');
+                $roles = $request->input('roles');
+                if($user->save()){
+                    if(count($roles)){
+                        $user->roles()->sync( $roles);
+                    }
+                    session()->flash('updated','User Updated Successfully');
+                }else{
+                    session()->flash('error','Unable to Create New User');
+                }
 
-				$user->save();
-				
-				$user->roles()->sync($request->input('roles'));
-				return redirect()->route('users.index');
+		return redirect()->route('users.index');
     }
 
     /**

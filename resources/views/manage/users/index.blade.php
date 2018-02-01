@@ -1,6 +1,5 @@
 @extends('layouts.manage') 
 @section('content')
-	@include('include.nav._main')
 <div class="columns">
 	<div class="column">
 		<div class="panel">
@@ -33,20 +32,13 @@
 							</td>
 							<td>{{$user->created_at}}</td>
 							<td>
-								 {{-- <a href="{{route('users.destroy',$user->id)}}" class="button is-danger">
-									<span class="icon">
-										<i class="fa fa-trash"></i>
-									</span>
-									<span>Delete</span>
-								</a> --}}
-								<form id="delete" class="field is-horizontal"action="{{ route('users.destroy',$user->id) }}" method="POST">
-										<a href="{{route('users.edit',$user->id)}}" class="button is-primary">
+								<form id="delete" class="field is-horizontal" action="{{ route('users.destroy',$user->id) }}" method="POST">
+									<a href="{{route('users.edit',$user->id)}}" class="button is-primary">
 											<span class="icon">
 												<i class="fa fa-pencil-square-o"></i>
 											</span>
 											<span>Edit</span>
-										</a>
-									{{ csrf_field() }} {{ method_field('Delete') }}
+										</a> {{ csrf_field() }} {{ method_field('Delete') }}
 									<button type="submit" class="button is-danger">Delete</button>
 								</form>
 							</td>
@@ -58,4 +50,38 @@
 		</div>
 	</div>
 </div>
+@endsection
+ 
+@section('scripts')
+<script>
+	let app = new Vue({
+		el:'#app',
+		data:{
+			
+		},
+		methods:{
+			snackbar(msg) {
+					this.$snackbar.open(msg)
+			},
+			error() {
+				this.$snackbar.open({
+					message:session.error,
+					type: 'is-danger',
+					actionText:'Ok'
+				})
+			},
+		}
+	});
+	let session = {!! json_encode(Session::all())!!}
+	
+	if(session.hasOwnProperty('success')){
+		app.snackbar(session.success);
+	}else if(session.hasOwnProperty('updated')){
+		app.snackbar(session.updated);
+	}else if(session.hasOwnProperty('error')){
+		app.error();
+	}else{
+		console.log("Nothing But Also At Last it work");
+	}
+</script>
 @endsection
