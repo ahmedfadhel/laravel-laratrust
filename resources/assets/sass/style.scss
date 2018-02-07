@@ -31,3 +31,16 @@ body{
 .menu-label {
   color:#a5b5d6;
 }
+.menu-list li ul{
+  margin-top:0;
+  margin-bottom:0;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition:all 0.2s ease-in-out;
+}
+.menu-list li ul.is-slide{
+  max-height:200px;
+  margin-top:0.75rem;
+  margin-bottom: 0.75rem;
+}

@@ -16,3 +16,11 @@ Vue.use(Buefy);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+let sildeButton = document.getElementsByClassName('slide-button');
+
+for (let index = 0; index < sildeButton.length; index++) {
+  const element = sildeButton[index];
+  element.addEventListener('click',function(){
+    this.nextElementSibling.classList.toggle('is-slide');
+  });
+}

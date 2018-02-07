@@ -1058,6 +1058,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy___default.a);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+var sildeButton = document.getElementsByClassName('slide-button');
+
+for (var index = 0; index < sildeButton.length; index++) {
+  var element = sildeButton[index];
+  element.addEventListener('click', function () {
+    this.nextElementSibling.classList.toggle('is-slide');
+  });
+}
 
 /***/ }),
 /* 12 */

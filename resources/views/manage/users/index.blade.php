@@ -1,5 +1,6 @@
 @extends('layouts.manage') 
 @section('content')
+	@include('include.nav._main')
 <div class="columns">
 	<div class="column">
 		<div class="panel">

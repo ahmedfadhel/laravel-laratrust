@@ -12,21 +12,25 @@
     <ul class="menu-list">
       <li><a href="{{route('users.index')}}">Users Settings</a></li>
       <li>
-        <a >Manage ACL</a>
+        <a class="slide-button">Manage ACL</a>
         <ul>
-          <li><a  href="{{route('roles.index')}}">Roles</a></li>
+          <li><a href="{{route('roles.index')}}">Roles</a></li>
           <li><a href="{{route('permissions.index')}}">Permissions</a></li>
         </ul>
         <li>
-            <a >Manage Resources</a>
-            <ul>
-              <li><a>Images</a></li>
-              <li><a>Videos</a></li>
-              <li><a>Documens</a></li>
-            </ul>
-      </li>
-
+          <a class="slide-button">Manage Resources</a>
+          <ul>
+            <li><a>Images</a></li>
+            <li><a>Videos</a></li>
+            <li><a>Documens</a></li>
+          </ul>
+        </li>
     </ul>
-   
   </aside>
 </div>
+
+@section('scripts')
+<script>
+
+</script>
+@endsection
